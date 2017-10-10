@@ -5,6 +5,8 @@ files:
     destination: /var/www/html/
   - source: /Test.html
     destination: /var/www/html/    
+  - source: /jsonbinding.html
+    destination: /var/www/html/    
 hooks:
   BeforeInstall:
     - location: scripts/install_dependencies
