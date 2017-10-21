@@ -13,18 +13,32 @@
 <body>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular.min.js"></script>
     <script type="text/javascript">
-    
+    const aws = require('aws-sdk');
+    const s3 = new aws.S3(); // Pass in opts to S3 if necessary
+
+var getParams = {
+    Bucket: 'ad3g-nfl', // your bucket name,
+    Key: 'nfljson.txt' // path to the object you're looking for
+}
+
+s3.getObject(getParams, function(err, data) {
+    // Handle any error and exit
+    if (err)
+        return err;
+
+  // No error happened
+  // Convert Body from a Buffer to a String
+
+  let objectData = data.Body.toString('utf-8'); // Use the encoding necessary
+});
+	    
+	    
         var app = angular.module('MyApp', [])
         //angular.element(window.document.body).ready(function () {
         	app.controller('MyController', function ($scope) {
             //$scope.IsVisible = false;
             $scope.load = function () {
-                $scope.Customers = [
-                { Player: "Annette", tm1: "CIN", sc1: "0", tm2: "CAR", sc2: "9", tm3: "TB", sc3: "17", tm4: "OAK", sc4: "10", tm5: "DET", sc5: "24" },
-                { Player: "Bagroom Frank", tm1: "CHI", sc1: "17", tm2: "NYG", sc2: "10", tm3: "OAK", sc3: "10", tm4: "TB", sc4: "25", tm5: "NYG", sc5: "22" },
-                { Player: "Buda", tm1: "ATL", sc1: "23", tm2: "BAL", sc2: "24", tm3: "CHI", sc3: "23", tm4: "LA", sc4: "35", tm5: "LA", sc5: "10" },
-                { Player: "C. Baker", tm1: "LA", sc1: "46", tm2: "IND", sc2: "13", tm3: "HOU", sc3: "33", tm4: "DAL", sc4: "30", tm5: "CHI", sc5: "17" },
-               ];
+                $scope.Customers = objectData;
                 $scope.IsVisible = true;
             };
         });
@@ -32,7 +46,7 @@
     </script>
     <div ng-app="MyApp" ng-controller="MyController" ng-init='load()'>
     <BR>
-	<center><font size="36">NFL 22 Point Pool - Standings</font></center>
+	<center><font size="36">NFL 22 Point Pool - Standingssss</font></center>
 <!--         <input type="button" value="Generate Table" ng-click="GenerateTable()" /> -->
         <div class="table-responsive"><center><font size="18">Year: 2017  Season: Regular</font></center>        
         <table class="table table-bordered text-center ng-show="IsVisible">
