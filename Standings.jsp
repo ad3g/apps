@@ -28,8 +28,11 @@ s3.getObject(getParams, function(err, data) {
 
   // No error happened
   // Convert Body from a Buffer to a String
-
+console.log("before Body");
   let objectData = data.Body.toString('utf-8'); // Use the encoding necessary
+  console.log("Body: " + objectData);
+  console.log("after Body");
+
 });
 	    
 	    
